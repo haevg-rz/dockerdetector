@@ -30,7 +30,7 @@ func TestIsRunningInContainer(t *testing.T) {
 	}
 }
 
-func Test_isRunningInContainer(t *testing.T) {
+func TestInternalIsRunningInContainer(t *testing.T) {
 
 	type args struct {
 		filename string
