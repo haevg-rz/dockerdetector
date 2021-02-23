@@ -5,7 +5,7 @@
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=dhcgn_dockerdetector&metric=alert_status)](https://sonarcloud.io/dashboard?id=dhcgn_dockerdetector)
 [![Go Report Card](https://goreportcard.com/badge/github.com/dhcgn/dockerdetector)](https://goreportcard.com/report/github.com/dhcgn/dockerdetector)
 [![Go Doc](https://godoc.org/github.com/dhcgn/dockerdetector?status.svg)](http://godoc.org/github.com/dhcgn/dockerdetector)
-
+[![Known Vulnerabilities](https://snyk.io/test/github/dhcgn/dockerdetector/badge.svg?targetFile=go.mod)](https://snyk.io/test/github/dhcgn/dockerdetector?targetFile=go.mod)
 
 ## Intro
 
