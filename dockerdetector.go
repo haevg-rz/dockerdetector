@@ -84,9 +84,9 @@ func createProtectedIDFromDocker(salt string, file fs.File) (string, error) {
 	return protect(salt, id), nil
 }
 
-func protect(appID, key string) string {
+func protect(salt, key string) string {
 	mac := hmac.New(sha256.New, []byte(key))
-	mac.Write([]byte(appID))
+	mac.Write([]byte(salt))
 	return hex.EncodeToString(mac.Sum(nil))
 }
 
