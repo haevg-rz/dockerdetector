@@ -12,6 +12,9 @@
 This package use cgroup to determine if we run as a docker container. 
 It runs only under linux, windows und macOS will always returning false.
 
+This package can also creates a static ID (Docker ID) and a salted Id (Docker Protected ID) encoded as a hex string.
+Used cryptographic primitives are SHA256 and HMAC-SHA256.
+
 ## Usage
 
 `go get -u github.com/dhcgn/dockerdetector`
