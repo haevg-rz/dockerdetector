@@ -17,7 +17,7 @@ func TestIsRunningInContainer(t *testing.T) {
 	}{
 		{
 			name:    "No panic",
-			wantErr: runtime.GOOS != "linux",
+			wantErr: false,
 		},
 	}
 	for _, tt := range tests {
@@ -142,7 +142,7 @@ func Test_createID(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			f, err := testdataFS.Open(tt.args.filename)
-			got, err := createID(f)
+			got, err := createIDFromDocker(f)
 			if (err != nil) != tt.wantErr {
 				t.Errorf("createID() error = %v, wantErr %v", err, tt.wantErr)
 				return
@@ -178,7 +178,7 @@ func Test_createProtectedID(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			f, err := testdataFS.Open(tt.args.filename)
-			got, err := createProtectedID(tt.args.salt, f)
+			got, err := createProtectedIDFromDocker(tt.args.salt, f)
 			if (err != nil) != tt.wantErr {
 				t.Errorf("createProtectedID() error = %v, wantErr %v", err, tt.wantErr)
 				return
@@ -193,17 +193,28 @@ func Test_createProtectedID(t *testing.T) {
 func TestCreateID(t *testing.T) {
 	tests := []struct {
 		name    string
+		os      string
 		want    string
 		wantErr bool
 	}{
 		{
-			name:    "No panic",
-			wantErr: runtime.GOOS != "linux",
+			name:    "Error, works only on linux",
+			os:      "windows",
+			wantErr: true,
+		},
+		{
+			name:    "Error, because is not docker",
+			os:      "linux",
+			wantErr: true,
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			_, err := CreateID()
+			if runtime.GOOS != tt.os {
+				return
+			}
+
+			_, err := CreateIDFromDocker()
 			if (err != nil) != tt.wantErr {
 				t.Errorf("CreateID() error = %v, wantErr %v", err, tt.wantErr)
 				return
@@ -218,18 +229,29 @@ func TestCreateProtectedID(t *testing.T) {
 	}
 	tests := []struct {
 		name    string
+		os      string
 		args    args
 		want    string
 		wantErr bool
 	}{
 		{
-			name:    "No panic",
-			wantErr: runtime.GOOS != "linux",
+			name:    "Error, works only on linux",
+			os:      "windows",
+			wantErr: true,
+		},
+		{
+			name:    "Error, because is not docker",
+			os:      "linux",
+			wantErr: true,
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			_, err := CreateProtectedID(tt.args.salt)
+			if runtime.GOOS != tt.os {
+				return
+			}
+
+			_, err := CreateProtectedFromDockerID(tt.args.salt)
 			if (err != nil) != tt.wantErr {
 				t.Errorf("CreateProtectedID() error = %v, wantErr %v", err, tt.wantErr)
 				return

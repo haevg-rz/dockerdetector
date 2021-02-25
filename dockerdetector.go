@@ -17,7 +17,7 @@ import (
 // IsRunningInContainer check in cgroup if your are running in a docker container
 func IsRunningInContainer() (bool, error) {
 	if runtime.GOOS != "linux" {
-		return false, errors.New("Works only with os linux")
+		return false, nil
 	}
 
 	file, err := os.DirFS("/proc/self").Open("cgroup")
@@ -31,7 +31,7 @@ func IsRunningInContainer() (bool, error) {
 	return isDocker, err
 }
 
-func CreateID() (string, error) {
+func CreateIDFromDocker() (string, error) {
 	if runtime.GOOS != "linux" {
 		return "", errors.New("Works only with os linux")
 	}
@@ -42,10 +42,10 @@ func CreateID() (string, error) {
 	}
 	defer file.Close()
 
-	return createID(file)
+	return createIDFromDocker(file)
 }
 
-func createID(file fs.File) (string, error) {
+func createIDFromDocker(file fs.File) (string, error) {
 	isDocker, id, err := isRunningInContainer(file)
 	if err != nil {
 		return "", err
@@ -61,7 +61,7 @@ func createID(file fs.File) (string, error) {
 	return fmt.Sprintf("%x", h.Sum(nil)), nil
 }
 
-func CreateProtectedID(salt string) (string, error) {
+func CreateProtectedFromDockerID(salt string) (string, error) {
 	if runtime.GOOS != "linux" {
 		return "", errors.New("Works only with os linux")
 	}
@@ -72,11 +72,11 @@ func CreateProtectedID(salt string) (string, error) {
 	}
 	defer file.Close()
 
-	return createProtectedID(salt, file)
+	return createProtectedIDFromDocker(salt, file)
 }
 
-func createProtectedID(salt string, file fs.File) (string, error) {
-	id, err := createID(file)
+func createProtectedIDFromDocker(salt string, file fs.File) (string, error) {
+	id, err := createIDFromDocker(file)
 	if err != nil {
 		return "", err
 	}
