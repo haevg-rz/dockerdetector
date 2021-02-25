@@ -6,7 +6,6 @@ import (
 	"crypto/sha256"
 	"encoding/hex"
 	"errors"
-	"fmt"
 	"io"
 	"io/fs"
 	"os"
@@ -58,7 +57,7 @@ func createIDFromDocker(file fs.File) (string, error) {
 	h := sha256.New()
 	h.Write([]byte(id))
 
-	return fmt.Sprintf("%x", h.Sum(nil)), nil
+	return hex.EncodeToString(h.Sum(nil)), nil
 }
 
 func CreateProtectedFromDockerID(salt string) (string, error) {
