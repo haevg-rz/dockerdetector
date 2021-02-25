@@ -55,7 +55,11 @@ func main() {
 ## Run in docker
 
 ```
+$ docker run -i -t --rm golang
+
 root@110c80b1eb43:/go# go install github.com/dhcgn/dockerdetector/cmd/dockerdetector@latest
 root@110c80b1eb43:/go# dockerdetector
 Run in Docker: true
+Docker ID: 3ae2bacb803925e4e1be937b8e4609d138abcd6cf61165d9a57a48823107ad56
+Docker Protected ID: 4dbeebcbcf17bf073343360ee3db67f7fb31214d661d61a2a3b03abe83c9ac3c
 ```
