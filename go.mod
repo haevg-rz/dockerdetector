@@ -1,3 +1,3 @@
-module github.com/dhcgn/dockerdetector
+module github.com/haevg-rz/dockerdetector
 
 go 1.16
