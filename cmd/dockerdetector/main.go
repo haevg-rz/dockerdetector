@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	"github.com/dhcgn/dockerdetector"
+	"github.com/haevg-rz/dockerdetector"
 )
 
 func main() {

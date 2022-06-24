@@ -23,7 +23,7 @@ jobs:
 
     - name: Test
       run: | 
-       go test -coverprofile coverage.out github.com/dhcgn/dockerdetector
+       go test -coverprofile coverage.out github.com/haevg-rz/dockerdetector
        go tool cover -html=coverage.out -o coverage.html
     
     - name: Upload a Build Artifact
